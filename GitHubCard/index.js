@@ -53,3 +53,7 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function myCards (myObject) {
+  
+}
