@@ -24,7 +24,38 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+
+
+
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  'lauradondiego',
+  'ayunas'
+];
+
+followersArray.forEach( username => {
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(data => {
+    // handle success
+    const instructor = data.data
+    cards.appendChild(createInstructorCard(instructor))
+    console.log('page is working', data.data);
+  })
+  .catch(error => {
+    // handle error
+    console.log('currently down', error);
+  })
+  
+
+
+})
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,6 +85,66 @@ const followersArray = [];
   bigknell
 */
 
-function myCards (myObject) {
+const cards = document.querySelector('.cards')
+
+  // axios.get('https://api.github.com/users/lauradondiego')
+  // .then(data => {
+  //   // handle success
+  //   // console.log(data)
+  //   const instructor = data.data
+  //   cards.appendChild(createInstructorCard(instructor))
+  //   console.log('page is working', data.data);
+  // })
+  // .catch(error => {
+  //   // handle error
+  //   console.log('currently down', error);
+  // })
   
-}
+
+  function createInstructorCard (instructor) {
+      const card = document.createElement('div')
+      const cardInfo = document.createElement('div')
+      const selfie = document.createElement('img')
+      const fullName = document.createElement('h3')
+      const username = document.createElement('p')
+      const location = document.createElement('p')
+      const profUrl = document.createElement('a')
+      const profile = document.createElement('p')
+      const followers = document.createElement('p')
+      const following = document.createElement('p')
+      const bio = document.createElement('p')
+      console.log(cardInfo, selfie, fullName, username, location, profUrl, followers, following, bio);
+
+      
+      card.classList.add('card');
+      cardInfo.classList.add('card-info');
+      fullName.classList.add('name');
+      username.classList.add('username');
+
+      selfie.src = instructor.avatar_url
+      fullName.textContent = instructor.name
+      username.textContent = instructor.login
+      location.textContent = instructor.location
+      profUrl.textContent = instructor.html_url
+      profUrl.href = instructor.html_url
+      profile.textContent = `Profile: `
+      followers.textContent = `Followers: ${instructor.followers}`
+      following.textContent = `Following: ${instructor.following}`
+      bio.textContent = `Bio: ${instructor.bio}`
+
+
+      profile.appendChild(profUrl);
+      cardInfo.appendChild(fullName);
+      cardInfo.appendChild(username);
+      cardInfo.appendChild(location);
+      cardInfo.appendChild(profile);
+      cardInfo.appendChild(followers);
+      cardInfo.appendChild(following);
+      cardInfo.appendChild(bio);
+      card.appendChild(selfie);
+      card.appendChild(cardInfo);
+
+
+    return card
+  
+  }
