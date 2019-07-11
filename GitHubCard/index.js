@@ -50,8 +50,6 @@ followersArray.forEach( username => {
     // handle error
     console.log('currently down', error);
   })
-  
-
 
 })
 
@@ -124,7 +122,7 @@ const cards = document.querySelector('.cards')
       selfie.src = instructor.avatar_url
       fullName.textContent = instructor.name
       username.textContent = instructor.login
-      location.textContent = instructor.location
+      location.textContent = `Location: ${instructor.location}`
       profUrl.textContent = instructor.html_url
       profUrl.href = instructor.html_url
       profile.textContent = `Profile: `
